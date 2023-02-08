@@ -1,12 +1,49 @@
 import car from "../assets/car.mp4";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../firebase.js";
 
 function Login () {
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+
+
+    //input verification
+    const [emailVerification, setEmailVerification] = useState(true);
+    const [passwordVerification, setPasswordVerification] = useState(false);
+
+
+    function handleChangeEmail(event) {
+        setEmail(event.target.value)
+    }
+
+    function handleChangePassword(event) {
+        setPassword(event.target.value)
+    }
+
+
+    async function login(){
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        try {
+            console.log('Successfully connected');
+            const user = userCredential.user;
+            console.log(user);
+            await navigate("/");
+            localStorage.setItem('isConnected', "true");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className="container is-centered" style={styles.screen}>
             <div className="hero">
                 <div className="hero-body">
-                    <h1 className="title has-text-centered is-size-2" style={styles.textColor}>Sign up</h1>
+                    <h1 className="title has-text-centered is-size-2" style={styles.textColor}>Login</h1>
                     <div className="columns is-centered">
                         <div className="column is-half">
                             <div className="notification is-light">
@@ -33,16 +70,16 @@ function Login () {
                                 </div>
                                 <button className="button is-info is-rounded is-outlined is-medium"
                                     //disabled={buttonDisabled}
-                                        onClick={signup}>
-                                    Sign up
+                                    onClick={login}>
+                                    Login
                                 </button>
                                 <div className="has-text-centered">
-                                    <p>Already Have an account ?</p>
+                                    <p>Doesn't have an account yet ?</p>
                                     <Link
                                         style={styles.help}
-                                        to={"/login"}
+                                        to={"/signup"}
                                         className="has-text-weight-bold">
-                                        Login
+                                        Signup
                                     </Link>
                                 </div>
                             </div>
@@ -53,5 +90,20 @@ function Login () {
         </div>
     )
 }
+
+const styles = {
+    screen: {
+        minHeight: "100%", minWidth: "100%", height: "130vh"
+    }, textColor: {
+        color: "black"
+    },
+    backgroundModal: {
+        cursor: "pointer"
+    },
+    help : {
+        fontFamily : "Arial"
+    }
+}
+
 
 export default Login

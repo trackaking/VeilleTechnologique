@@ -1,10 +1,31 @@
+import {Link, useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlay, faRightFromBracket, faStop, faUser} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
-import {Link} from "react-router-dom";
 
 
-function Navbar() {
+
+function Menu() {
+    const [musicOn, setMusicOn] = useState(false);
+    const [randomMusic, setRandomMusic] = useState(0)
+    const navigate = useNavigate();
+    //const success = localStorage.getItem("isConnected")
+    const success = true;
+
+
+
+    /*
+        const video = document.getElementById('audio');
+        console.log(video)
+
+        if(musicOn === true){
+            video.onended = (event) => {
+                console.log('Video stopped either because 1) it was over, ' +
+                 'or 2) no further data is available.');
+                };
+        }
+    */
+
 
     //navbar control mobile
     const [shownav, setshowNav] = useState(false);
@@ -31,6 +52,11 @@ function Navbar() {
                         <Link to="/" className="navbar-item">
                             Home Page
                         </Link>
+
+                        {
+                            musicOn === true &&
+                            <audio id={"audio"} src={musics[randomMusic]} autoPlay loop/>
+                        }
                         <div className={"navbar-item"}>
                         </div>
                     </div>
@@ -38,7 +64,7 @@ function Navbar() {
                         <div className="navbar-item">
                             <div className="buttons">
                                 {
-                                    //success !== "true" &&
+                                    success !== "true" &&
                                     <Link
                                         to="/login"
                                         className="navbar-item">
@@ -46,7 +72,7 @@ function Navbar() {
                                     </Link>
                                 }
                                 {
-                                    //success !== "true" &&
+                                    success !== "true" &&
                                     <Link
                                         to="/signup"
                                         className="navbar-item">
@@ -54,11 +80,11 @@ function Navbar() {
                                     </Link>
                                 }
                                 {
-                                    //success !== "true" &&
+                                    success !== "true" &&
                                     <img src="https://tse3.mm.bing.net/th?id=OIP.5U6XKTb8Zl_OeCAVHNeyQgHaHA&pid=Api&P=0" alt="userPic" className="user-pic" />
                                 }
                                 {
-                                    //success === "true" &&
+                                    success === "true" &&
                                     <Link
                                         to="/profile"
                                         className="button is-rounded is-info is-light is-outlined">
@@ -66,8 +92,8 @@ function Navbar() {
                                     </Link>
                                 }
                                 {
-                                    //success === "true" &&
-                                    <button //onClick={logout}
+                                    success === "true" &&
+                                    <button onClick={logout}
                                             className="button is-danger">
                                         <p className="control has-icons-left">
                                             <span>
@@ -82,9 +108,8 @@ function Navbar() {
                 </div>
             </nav>
         </div>
-    )
+    );
 }
-
 
 const styles = {
     menu: {
@@ -101,7 +126,8 @@ const styles = {
         borderRadius: "50%",
         height: "auto",
         objectFit : "cover",
-    }
+}
 }
 
-export default Navbar
+
+export default Menu;
