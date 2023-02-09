@@ -1,7 +1,9 @@
 import {Link, useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {signOut} from "firebase/auth";
 import {faPlay, faRightFromBracket, faStop, faUser} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
+import {auth} from "../firebase.js";
 
 
 
@@ -9,8 +11,8 @@ function Menu() {
     const [musicOn, setMusicOn] = useState(false);
     const [randomMusic, setRandomMusic] = useState(0)
     const navigate = useNavigate();
-    //const success = localStorage.getItem("isConnected")
-    const success = true;
+    const success = localStorage.getItem("isConnected")
+    //const success = true;
 
 
 
@@ -32,6 +34,19 @@ function Menu() {
 
     function activateNavbar() {
         setshowNav(!shownav);
+    }
+
+    async function logout(){
+        const user = await signOut(auth);
+        try {
+            console.log('Successfully signed out');
+            //const user = user.user;
+            console.log(user);
+            await navigate("/login");
+            localStorage.removeItem('isConnected');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (

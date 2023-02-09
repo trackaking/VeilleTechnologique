@@ -1,12 +1,19 @@
 import {Link, useNavigate} from "react-router-dom";
 import car from "../assets/car.mp4";
 import {useState} from "react";
-import {  createUserWithEmailAndPassword  } from 'firebase/auth';
+import {  createUserWithEmailAndPassword,signInWithPopup, signInWithRedirect,GoogleAuthProvider  } from 'firebase/auth';
 import { auth } from '../firebase';
+import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { getDatabase, ref, set } from "firebase/database";
 
 function Signup () {
     const navigate = useNavigate();
+    const provider = new GoogleAuthProvider();
+    //provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    provider.addScope('profile');
+    provider.addScope('email');
+
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -28,6 +35,30 @@ function Signup () {
 
     function handleChangePassword(event) {
         setPassword(event.target.value)
+    }
+
+    async function googleTest(){
+
+         const result = await signInWithRedirect(auth, provider)
+             try {
+                 // This gives you a Google Access Token. You can use it to access the Google API.
+                 const credential = GoogleAuthProvider.credentialFromResult(result);
+                 const token = credential.accessToken;
+                 // The signed-in user info.
+                 const user = result.user;
+                 // IdP data available using getAdditionalUserInfo(result)
+                 // ...
+             } catch(error) {
+                 // Handle Errors here.
+                 const errorCode = error.code;
+                 const errorMessage = error.message;
+                 // The email of the user's account used.
+                 const email = error.customData.email;
+                 // The AuthCredential type that was used.
+                 const credential = GoogleAuthProvider.credentialFromError(error);
+                 // ...
+             }
+
     }
 
     async function signup(){
@@ -67,7 +98,12 @@ function Signup () {
             console.log(user.uid);
             await navigate("/login");
         } catch (error) {
-            console.log("error: " + error);
+            //console.log("error: " + error);
+            const errorMessage = error.message;
+            if (error.code === 'auth/email-already-in-use'){
+                console.log(error.email)
+            }
+
         }
     }
 
@@ -110,12 +146,21 @@ function Signup () {
                                         </span>
                                     </p>
                                 </div>
-                                <button className="button is-info is-rounded is-outlined is-medium"
+                                <button className="button is-dark is-rounded is-outlined is-medium"
                                         //disabled={buttonDisabled}
                                         onClick={signup}>
                                     Sign up
                                 </button>
                                 <div className="has-text-centered">
+                                    <button onClick={googleTest}
+                                            style={styles.google}
+                                            className="button is-dark">
+                                        <p className="control has-icons-left">
+                                            <span>
+                                                <i><FontAwesomeIcon icon={faEnvelope} /></i>
+                                            </span></p>
+                                        Google Signup
+                                    </button>
                                     <p>Already Have an account ?</p>
                                     <Link
                                         style={styles.help}
@@ -144,6 +189,9 @@ const styles = {
     },
     help : {
         fontFamily : "Arial"
+    },
+    google : {
+        marginBottom : '14px'
     }
 }
 
