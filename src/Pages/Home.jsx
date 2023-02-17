@@ -1,28 +1,84 @@
-import car from "../assets/car.mp4";
-
-
+import {Link} from "react-router-dom";
+import { getDatabase, ref, get, child } from "firebase/database";
+import { auth } from '../firebase';
+import {useState, useContext, useEffect} from "react";
 
 function Home(){
+    const success = localStorage.getItem("isConnected")
+    const database = ref(getDatabase());
+    const [user, setuser] = useState("");
+
+        useEffect(() => {
+            async  function getUser() {   
+                get(child(database, `data/Users/` + auth.currentUser.uid )).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        setuser(snapshot.val());
+                        console.log(user);
+                    }
+                })
+               
+            }
+            getUser();
+        }, []);
+        
+
     return (
-        <div className='main'>
-            <div className="overlay"/>
-            <video src={car} autoPlay loop muted />
-            <div className="content">
-                <h1 style={styles.textColor}>Welcome</h1>
+        user &&
+        <div className="container is-fullhd has-text-centered">
+        <div className="hero">
+            <div className="hero-body">
+                <h1 className="title has-text-centered is-size-2">Car Watcher</h1>
+                <div className="columns is-centered">
+                    <div className="column is-half">
+                        <div className="notification is-light">
+                            <div className="field">
+                            {
+                                success !== "true" &&
+                            <>
+                            <section class="section">
+                                <h1>Watch your car and get notifications when an issue irises with your car's parts! Sign up now to register your car and watch over it from anywhere in the world.</h1>
+                                    <Link to="/signup" className="button">
+                                            Sign Up Now!
+                                    </Link>
+                            </section><section class="section">
+                                <img src="https://www.jing.fm/clipimg/full/291-2915549_side-view-car-vector-png.png"></img>
+                                         <h1>Watch your car and get notifications when an issue irises with your car's parts! Login now to register your car and watch over it from anywhere in the world.</h1>
+                            </section></>
+                                  }
+                                      {
+                                success == "true" &&
+                            <>
+                            <section class="section">
+                                <h1>Welcome, { user.username } </h1>
+                            </section><section class="section">
+                                <img src="https://www.jing.fm/clipimg/full/291-2915549_side-view-car-vector-png.png"></img>
+                                         <h1>Your cars</h1>
+                                         <ul>
+                                         {user.cars.length !== 0 &&
+                                            <li>{user.cars.map(car=>(
+                                                <>
+                                                    <Link to={`/car/${car.carId}`}><li><strong>{car.carname}</strong></li></Link></>
+                                                ))}</li>
+                                        }
+                                        </ul>                                    
+                            </section></>
+                                  }
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <footer class="footer">
+    <p>
+    Made by:
+    Chéry, Stéphane André 
+    Amzert, Karim
+    </p>
+
+</footer>
+    </div>
     )
 }
-
-const styles  = {
-    button : {
-        cursor: "pointer"
-    },
-    textColor : {
-        color : "white"
-    }
-}
-
-
 
 export default Home
