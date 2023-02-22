@@ -34,6 +34,7 @@ function Login () {
             console.log(user);
             await navigate("/");
             localStorage.setItem('isConnected', "true");
+            localStorage.setItem('id', user.uid);
         } catch (error) {
             console.log(error);
         }
