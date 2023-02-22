@@ -5,12 +5,13 @@ import {useState, useContext, useEffect} from "react";
 
 function Home(){
     const success = localStorage.getItem("isConnected")
+    const id = localStorage.getItem("id");
     const database = ref(getDatabase());
     const [user, setuser] = useState("");
 
         useEffect(() => {
             async  function getUser() {   
-                get(child(database, `data/Users/` + auth.currentUser.uid )).then((snapshot) => {
+                get(child(database, `data/Users/` + id )).then((snapshot) => {
                     if (snapshot.exists()) {
                         setuser(snapshot.val());
                         console.log(user);
@@ -21,7 +22,16 @@ function Home(){
             getUser();
         }, []);
         
-
+        async  function getUser() {   
+            get(child(database, `data/Users/` + id )).then((snapshot) => {
+                if (snapshot.exists()) {
+                    setuser(snapshot.val());
+                }
+            })
+           
+        }
+        getUser();
+        
     return (
         user &&
         <div className="container is-fullhd has-text-centered">
@@ -57,7 +67,7 @@ function Home(){
                                          {user.cars.length !== 0 &&
                                             <li>{user.cars.map(car=>(
                                                 <>
-                                                    <Link to={`/car/${car.carId}`}><li><strong>{car.carname}</strong></li></Link></>
+                                                    <Link to={`/carInfo/${user.cars.indexOf(car)}`}><li><strong>{car.carname}</strong></li></Link></>
                                                 ))}</li>
                                         }
                                         </ul>                                    
