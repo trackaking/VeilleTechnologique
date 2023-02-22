@@ -53,7 +53,7 @@ function CarInfo() {
         const CartoDelete = child(database, `data/Users/` + id + "/cars/" + params.carnumber);
 
     remove(CartoDelete).then(() => {
-    console.log("location removed");
+    console.log("car removed");
     navigate("/")
 });
       }
