@@ -73,6 +73,14 @@ function Menu() {
                             musicOn === true &&
                             <audio id={"audio"} src={musics[randomMusic]} autoPlay loop/>
                         }
+                        {
+                            success === "true" &&
+                            <Link
+                                to="/cars"
+                                className="navbar-item">
+                                cars search
+                            </Link>
+                        }
                         <div className={"navbar-item"}>
                         </div>
                     </div>

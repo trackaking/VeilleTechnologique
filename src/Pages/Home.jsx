@@ -10,28 +10,28 @@ function Home(){
     const [user, setuser] = useState("");
 
         useEffect(() => {
-            async  function getUser() {   
+            async  function getUser() {
                 get(child(database, `data/Users/` + id )).then((snapshot) => {
                     if (snapshot.exists()) {
                         setuser(snapshot.val());
                         console.log(user);
                     }
                 })
-               
+
             }
             getUser();
         }, []);
-        
-        async  function getUser() {   
+
+        async  function getUser() {
             get(child(database, `data/Users/` + id )).then((snapshot) => {
                 if (snapshot.exists()) {
                     setuser(snapshot.val());
                 }
             })
-           
+
         }
         getUser();
-        
+
     return (
         user &&
         <div className="container is-fullhd has-text-centered">
@@ -61,7 +61,7 @@ function Home(){
                             <section class="section">
                                 <h1>Welcome, { user.username } </h1>
                             </section><section class="section">
-                                <img src="https://www.jing.fm/clipimg/full/291-2915549_side-view-car-vector-png.png"></img>
+                                <img src="https://tse4.mm.bing.net/th?id=OIP.ql72JZ9z0LhaJ6kjOShcyQHaEK&pid=Api&P=0"></img>
                                          <h1>Your cars</h1>
                                          <ul>
                                          {user.cars.length !== 0 &&
@@ -70,7 +70,7 @@ function Home(){
                                                     <Link to={`/carInfo/${user.cars.indexOf(car)}`}><li><strong>{car.carname}</strong></li></Link></>
                                                 ))}</li>
                                         }
-                                        </ul>                                    
+                                        </ul>
                             </section></>
                                   }
                             </div>
@@ -82,7 +82,7 @@ function Home(){
         <footer class="footer">
     <p>
     Made by:
-    Chéry, Stéphane André 
+    Chéry, Stéphane André
     Amzert, Karim
     </p>
 

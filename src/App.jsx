@@ -5,6 +5,8 @@ import Signup from "./Pages/Signup.jsx";
 import Home from "./Pages/Home.jsx";
 import Menu from "./Components/Menu.jsx";
 import CarInfo from "./Pages/CarInfo.jsx";
+import Profile from "./Pages/Profile.jsx";
+import CarSearch from "./Pages/CarSearch.jsx";
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
               <Route path="/carInfo/:carnumber" element={<CarInfo/>}/>
               <Route path={"/signup"} element={<Signup />} />
               <Route path={'/'} element={<Home/>} />
+              <Route path={'/profile'} element={<Profile/>} />
+              <Route path={'/cars'} element={<CarSearch/>} />
           </Routes>
       </BrowserRouter>
   )
