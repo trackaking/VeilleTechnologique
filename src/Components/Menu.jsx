@@ -43,6 +43,7 @@ function Menu() {
             //const user = user.user;
             console.log(user);
             await navigate("/login");
+            localStorage.removeItem('id')
             localStorage.removeItem('isConnected');
         } catch (error) {
             console.log(error);
