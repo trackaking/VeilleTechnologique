@@ -33,7 +33,7 @@ function Home(){
         getUser();
 
     return (
-        user &&
+        
         <div className="container is-fullhd has-text-centered">
         <div className="hero">
             <div className="hero-body">
@@ -57,7 +57,9 @@ function Home(){
                                   }
                                       {
                                 success == "true" &&
+                                user &&    
                             <>
+                       
                             <section class="section">
                                 <h1>Welcome, { user.username } </h1>
                             </section><section class="section">
