@@ -33,11 +33,11 @@ function Home(){
         getUser();
 
     return (
-        user &&
+        
         <div className="container is-fullhd has-text-centered">
         <div className="hero">
             <div className="hero-body">
-                <h1 className="title has-text-centered is-size-2">Car Watcher</h1>
+                <h1 className="title has-text-centered is-size-2" style={styles.textColor}>Car Watcher</h1>
                 <div className="columns is-centered">
                     <div className="column is-half">
                         <div className="notification is-light">
@@ -88,7 +88,34 @@ function Home(){
 
 </footer>
     </div>
+    
     )
+    
+}
+const styles = {
+    screen: {
+        minHeight: "100%",
+        minWidth: "100%",
+        height: "120vh"
+    },
+    textColor: {
+        color: "white",
+    },
+    imageBorder : {
+        border: "3px solid #FFF",
+        margin: "20px",
+        borderRadius: "50%",
+        objectFit : "cover",
+    },
+    centerImage : {
+        height: "auto",
+        width: "100%",
+        display : "flex",
+        flexDirection: "column",
+    },
+    figure: {
+        cursor: "pointer"
+    },
 }
 
 export default Home
