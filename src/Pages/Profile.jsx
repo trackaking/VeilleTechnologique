@@ -1,9 +1,11 @@
-import {onAuthStateChanged,updateProfile} from "firebase/auth";
-import firebase, {auth} from "../firebase.js";
+import {onAuthStateChanged,updateProfile, getIdToken} from "firebase/auth";
+import {auth} from "../firebase.js";
+import { getDatabase, ref, get, child , set, remove} from "firebase/database";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
 import * as constants from "constants";
+import {useEffect} from "react";
 
 function Profile (){
     const [email, setEmail] = useState("");
@@ -11,6 +13,9 @@ function Profile (){
     const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
     const [profilePicture, setProfilePicture] = useState("");
+    const id = localStorage.getItem("id");
+    const database = ref(getDatabase());
+    const [carData, setcarData] = useState("");
 
     function handleChangeEmail(event) {
         setEmail(event.target.value)
@@ -29,15 +34,33 @@ function Profile (){
     }
 
 
+    useEffect(() => {
+        async  function getCarData() {
+            get(child(database, `data/Users/` + id)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    setcarData(snapshot.val());
+                    //let carData = snapshot.val()
+                    console.log(carData.username);
+                    setEmail(carData.email);
+                    setUsername(carData.username);
+
+                }
+            })
+
+        }
+        getCarData().then(r => (console.log("success")));
+    }, []);
+
+
 
     onAuthStateChanged(auth,function(user) {
             if (user) {
                 // User is signed in.
                 //let test = user.displayName;
                 //console.log(test)
-                setEmail(user.email);
-                setProfilePicture(user.photoURL);
-                setUsername(user.displayName)
+                //setEmail(user.email);
+                //setProfilePicture(user.photoURL);
+                //setUsername(user.displayName)
                 //var isAnonymous = user.isAnonymous;
                 //var uid = user.uid;
                 //var providerData = user.providerData;
@@ -49,6 +72,7 @@ function Profile (){
 
    async function updateUserData(){
        //const idToken = await  auth().currentUser.getIdToken()
+       //const idToken  = await getIdToken(auth, )
 
         let user = await updateProfile(auth,{
             displayName: "Jane Q. User",

@@ -33,7 +33,7 @@ function Home(){
         getUser();
 
     return (
-        
+
         <div className="container is-fullhd has-text-centered">
         <div className="hero">
             <div className="hero-body">
@@ -57,6 +57,7 @@ function Home(){
                                   }
                                       {
                                 success === "true" &&
+                                          user &&
                             <>
                             <section className="section">
                                 <h1>Welcome, { user.username } </h1>
@@ -88,9 +89,9 @@ function Home(){
 
 </footer>
     </div>
-    
+
     )
-    
+
 }
 const styles = {
     screen: {
