@@ -1,5 +1,5 @@
 import {onAuthStateChanged,updateProfile} from "firebase/auth";
-import {auth} from "../firebase.js";
+import firebase, {auth} from "../firebase.js";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
@@ -48,7 +48,9 @@ function Profile (){
         });
 
    async function updateUserData(){
-        let user = await updateProfile({
+       //const idToken = await  auth().currentUser.getIdToken()
+
+        let user = await updateProfile(auth,{
             displayName: "Jane Q. User",
             photoURL: "https://example.com/jane-q-user/profile.jpg"
         })

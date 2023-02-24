@@ -45,29 +45,29 @@ function Home(){
                             {
                                 success !== "true" &&
                             <>
-                            <section class="section">
+                            <section className="section">
                                 <h1>Watch your car and get notifications when an issue irises with your car's parts! Sign up now to register your car and watch over it from anywhere in the world.</h1>
                                     <Link to="/signup" className="button">
                                             Sign Up Now!
                                     </Link>
-                            </section><section class="section">
-                                <img src="https://www.jing.fm/clipimg/full/291-2915549_side-view-car-vector-png.png"></img>
+                            </section><section className="section">
+                                <img src="https://www.jing.fm/clipimg/full/291-2915549_side-view-car-vector-png.png" alt={"random img"}/>
                                          <h1>Watch your car and get notifications when an issue irises with your car's parts! Login now to register your car and watch over it from anywhere in the world.</h1>
                             </section></>
                                   }
                                       {
-                                success == "true" &&
+                                success === "true" &&
                             <>
-                            <section class="section">
+                            <section className="section">
                                 <h1>Welcome, { user.username } </h1>
-                            </section><section class="section">
-                                <img src="https://tse4.mm.bing.net/th?id=OIP.ql72JZ9z0LhaJ6kjOShcyQHaEK&pid=Api&P=0"></img>
+                            </section><section className="section">
+                                <img src="https://tse4.mm.bing.net/th?id=OIP.ql72JZ9z0LhaJ6kjOShcyQHaEK&pid=Api&P=0" alt={"car image"}/>
                                          <h1>Your cars</h1>
                                          <ul>
                                          {user.cars.length !== 0 &&
-                                            <li>{user.cars.map(car=>(
+                                            <li >{user.cars.map(car=>(
                                                 <>
-                                                    <Link to={`/carInfo/${user.cars.indexOf(car)}`}><li><strong>{car.carname}</strong></li></Link></>
+                                                    <Link to={`/carInfo/${user.cars.indexOf(car)}`}><h1><strong>{car.carname}</strong></h1></Link></>
                                                 ))}</li>
                                         }
                                         </ul>
@@ -79,7 +79,7 @@ function Home(){
                 </div>
             </div>
         </div>
-        <footer class="footer">
+        <footer className="footer">
     <p>
     Made by:
     Chéry, Stéphane André
