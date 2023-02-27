@@ -64,6 +64,9 @@ function Home(){
                             </section><section className="section">
                                 <img src="https://tse4.mm.bing.net/th?id=OIP.ql72JZ9z0LhaJ6kjOShcyQHaEK&pid=Api&P=0" alt={"car image"}/>
                                          <h1 class="title is-4 is centered">Your cars</h1>
+                                         <Link to={`/addnewcar`}>
+                                         <button className="button is-rounded is-dark">Add new car</button>
+                                         </Link>
                                          <div className="column is-16">
                                          {user.cars.length !== 0 &&
                                            <div> {user.cars.map(car=>(
@@ -72,7 +75,7 @@ function Home(){
                                                     <div class="card  is-centered has-text-centered">
   <div class="card-image">
     <figure class="image ">
-      <img src="https://tse4.mm.bing.net/th?id=OIP.ql72JZ9z0LhaJ6kjOShcyQHaEK&pid=Api&P=0" alt="Placeholder image"/>
+      <img src={car.carImage} alt="Placeholder image"/>
     </figure>
   </div>
   <div class="card-content">
