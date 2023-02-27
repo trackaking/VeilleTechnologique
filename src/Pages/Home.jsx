@@ -63,15 +63,31 @@ function Home(){
                                 <h1>Welcome, { user.username } </h1>
                             </section><section className="section">
                                 <img src="https://tse4.mm.bing.net/th?id=OIP.ql72JZ9z0LhaJ6kjOShcyQHaEK&pid=Api&P=0" alt={"car image"}/>
-                                         <h1>Your cars</h1>
-                                         <ul>
+                                         <h1 class="title is-4 is centered">Your cars</h1>
+                                         <div className="column is-16">
                                          {user.cars.length !== 0 &&
-                                            <li >{user.cars.map(car=>(
+                                           <div> {user.cars.map(car=>(
                                                 <>
-                                                    <Link to={`/carInfo/${user.cars.indexOf(car)}`}><h1><strong>{car.carname}</strong></h1></Link></>
-                                                ))}</li>
+                                                    <Link to={`/carInfo/${user.cars.indexOf(car)}`}>
+                                                    <div class="card  is-centered has-text-centered">
+  <div class="card-image">
+    <figure class="image ">
+      <img src="https://tse4.mm.bing.net/th?id=OIP.ql72JZ9z0LhaJ6kjOShcyQHaEK&pid=Api&P=0" alt="Placeholder image"/>
+    </figure>
+  </div>
+  <div class="card-content">
+  <p class="title is-4 is centered">{car.carname}</p>
+    <div class="media">
+      </div>
+      </div>
+      </div>
+    </Link>
+    &nbsp;
+    &nbsp;</>
+        ))}
+                                                </div>
                                         }
-                                        </ul>
+                                        </div>
                             </section></>
                                   }
                             </div>
