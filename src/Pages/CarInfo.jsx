@@ -88,7 +88,7 @@ function CarInfo() {
                             <section class="section">
                                 <h1 className="title has-text-centered is-size-2"> { carData.carname }</h1>
                             </section><section class="section">
-                                <img src="https://tse4.mm.bing.net/th?id=OIP.ql72JZ9z0LhaJ6kjOShcyQHaEK&pid=Api&P=0"></img>
+                                <img src={ carData.carImage }></img>
                                          <h1> Serial number : { carData.carId }</h1>
 
                                         {carData.cartemp <= 0 &&
